@@ -33,7 +33,6 @@
       Sort,
       PizzaBlock,
       Skeleton,
-      Categories,
       Pagination,
     },
     setup() {
