@@ -30,37 +30,41 @@
   </div>
 </template>
 
-<script>
-  import { ref, computed } from 'vue';
-  import { useStore } from 'vuex';
+<script lang="ts">
+  import { ref, computed, defineComponent, PropType } from 'vue';
+  import { useStore } from '@/store';
+  import { PizzaItem } from '@/store/pizzas/types';
 
-  export default {
+  export default defineComponent({
     name: 'PizzaBlock',
     props: {
-      pizza: Object,
-      required: true,
+      pizza: {
+        type: Object as PropType<PizzaItem>,
+        required: true,
+      },
     },
-    setup({ pizza }) {
-      const typesDough = ['тонкое', 'традиционное'];
-      const availableSizes = [26, 30, 40];
+    //Применяем деструктуризацию объекта pizza для метода setup
+    setup({ pizza: { id, title, imageUrl, price, types, sizes } }) {
+      const typesDough: string[] = ['тонкое', 'традиционное'];
+      const availableSizes: number[] = [26, 30, 40];
 
-      const selectedDiameter = ref(pizza.sizes[0]);
-      const selectedDough = ref(pizza.types[0]);
+      const selectedDiameter = ref(sizes[0]);
+      const selectedDough = ref(types[0]);
 
       const store = useStore();
 
       const addToCart = () => {
         store.dispatch('cart/addToCart', {
-          id: pizza.id,
-          imageUrl: pizza.imageUrl,
-          title: pizza.title,
+          id,
+          imageUrl,
+          title,
           dough: typesDough[selectedDough.value],
           diameter: selectedDiameter.value,
-          price: pizza.price,
+          price,
         });
       };
       //Передаём ID для вычисления количества заказанной пиццы
-      const count = computed(() => store.getters['cart/cartItemsCount'](pizza.id));
+      const count = computed<number>(() => store.getters['cart/cartItemsCount'](id));
 
       return {
         typesDough,
@@ -71,5 +75,5 @@
         count,
       };
     },
-  };
+  });
 </script>

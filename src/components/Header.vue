@@ -21,19 +21,19 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { computed, watch, ref } from 'vue';
   import { useRoute } from 'vue-router';
-  import { useStore } from 'vuex';
   import Search from './Search.vue';
+  import { useStore } from '@/store';
 
   export default {
     name: 'Header',
     components: { Search },
     setup() {
       const store = useStore();
-      const price = computed(() => store.getters['cart/cartTotalPrice']);
-      const count = computed(() => store.getters['cart/cartTotalCount']);
+      const price = computed<number>(() => store.getters['cart/cartTotalPrice']);
+      const count = computed<number>(() => store.getters['cart/cartTotalCount']);
 
       const route = useRoute();
       const path = ref('/');

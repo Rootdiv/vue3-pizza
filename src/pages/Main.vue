@@ -17,14 +17,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import Categories from '@/components/Categories.vue';
   import Sort from '@/components/Sort.vue';
   import PizzaBlock from '@/components/PizzaBlock.vue';
   import Skeleton from '@/components/Skeleton.vue';
   import Pagination from '@/components/Pagination.vue';
   import { computed, onMounted } from 'vue';
-  import { useStore } from 'vuex';
+  import { useStore } from '../store/index';
 
   export default {
     name: 'Main',
@@ -43,31 +43,13 @@
       const currentPage = computed(() => store.state.pizzas.page);
       const totalPages = computed(() => store.state.pizzas.pages);
 
-      const changePage = (page) => {
+      const changePage = (page: number) => {
         store.commit('filter/setCurrentPage', page);
         store.dispatch('pizzas/fetchPizzas');
       };
 
-      // const loading = ref(true);
-      // const error = ref(null);
-
-      // const fetchData = async () => {
-      //   try {
-      //     loading.value = true;
-      //     const response = await axios.get('https://rootdiv.ru:2010/pizzas?limit=4');
-      //     console.log('response: ', response);
-      //     pizzas.value = response.data.pizzas;
-      //     console.log('pizzas.value: ', pizzas.value);
-      //   } catch (err) {
-      //     loading.value = false;
-      //     console.error('Произошла ошибка:', err.message);
-      //     error.value = err.message;
-      //   }
-      // };
-
       onMounted(() => {
         store.dispatch('pizzas/fetchPizzas');
-        //fetchData();
       });
 
       return {

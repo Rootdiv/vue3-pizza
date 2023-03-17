@@ -7,9 +7,9 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { ref } from 'vue';
-  import { useStore } from 'vuex';
+  import { useStore } from '@/store';
 
   export default {
     name: 'Categories',
@@ -17,10 +17,10 @@
     setup() {
       const store = useStore();
       const id = store.state.filter.categoryId;
-      const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+      const categories: string[] = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
       const selectedCategory = ref(categories[id]);
 
-      const changeCategory = (index) => {
+      const changeCategory = (index: number) => {
         selectedCategory.value = categories[index];
         store.commit('filter/setCategoryId', index);
         store.commit('filter/setCurrentPage', 1);

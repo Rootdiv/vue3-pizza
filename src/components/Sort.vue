@@ -14,30 +14,31 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { ref, onMounted, onBeforeUnmount } from 'vue';
-  import { useStore } from 'vuex';
+  import { SortItem, SortTypeEnum } from '@/store/filter/types';
+  import { useStore } from '@/store';
 
   export default {
     name: 'Sort',
 
     setup() {
       const store = useStore();
-      const sortLists = [
-        { title: 'популярности (DESC) ↓', type: 'rating', order: 'desc' },
-        { title: 'популярности (ASC) ↑', type: '-rating', order: 'asc' },
-        { title: 'цене (DESC) ↓', type: 'price', order: 'desc' },
-        { title: 'цене (ASC) ↑', type: '-price', order: 'asc' },
-        { title: 'алфавиту (DESC) ↓', type: 'title', order: 'desc' },
-        { title: 'алфавиту (ASC) ↑', type: '-title', order: 'asc' },
+      const sortLists: SortItem[] = [
+        { title: 'популярности (DESC) ↓', type: SortTypeEnum.RATING_DESC, order: 'desc' },
+        { title: 'популярности (ASC) ↑', type: SortTypeEnum.RATING_ASC, order: 'asc' },
+        { title: 'цене (DESC) ↓', type: SortTypeEnum.PRICE_DESC, order: 'desc' },
+        { title: 'цене (ASC) ↑', type: SortTypeEnum.PRICE_ASC, order: 'asc' },
+        { title: 'алфавиту (DESC) ↓', type: SortTypeEnum.TITLE_DESC, order: 'desc' },
+        { title: 'алфавиту (ASC) ↑', type: SortTypeEnum.TITLE_ASC, order: 'asc' },
       ];
       const sortTitle = store.state.filter.sorts.title;
 
       const isOpen = ref(false);
-      const sortRef = ref(null);
+      const sortRef = ref<HTMLDivElement>();
       const selectedSortActive = ref(sortTitle);
 
-      const selectedSort = (sortsData) => {
+      const selectedSort = (sortsData: SortItem) => {
         selectedSortActive.value = sortsData.title;
         store.commit('filter/setSorts', sortsData);
         store.dispatch('pizzas/fetchPizzas');
@@ -48,9 +49,11 @@
         isOpen.value = !isOpen.value;
       };
 
-      const handleOutsideClick = (event) => {
-        if (!event.composedPath().includes(sortRef.value)) {
-          isOpen.value = false;
+      const handleOutsideClick = (event: MouseEvent) => {
+        if (sortRef instanceof HTMLDivElement) {
+          if (!event.composedPath().includes(sortRef)) {
+            isOpen.value = false;
+          }
         }
       };
 

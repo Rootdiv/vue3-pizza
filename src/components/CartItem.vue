@@ -69,10 +69,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import CartSvg from '@/components/icons/CartSvg.vue';
   import TrashSvg from '@/components/icons/TrashSvg.vue';
-  import { useStore } from 'vuex';
+  import { useStore } from '@/store';
   import { computed } from 'vue';
 
   export default {
@@ -90,15 +90,15 @@
       const priceTotal = computed(() => store.getters['cart/cartTotalPrice']);
       const countTotal = computed(() => store.getters['cart/cartTotalCount']);
 
-      const plusItem = (id) => {
+      const plusItem = (id: number) => {
         store.commit('cart/incrementItemCount', id);
       };
 
-      const minusItem = (id) => {
+      const minusItem = (id: number) => {
         store.commit('cart/decrementItemCount', id);
       };
 
-      const removeItem = (id) => {
+      const removeItem = (id: number) => {
         if (window.confirm('Вы действительно хотите удалить товар?')) {
           store.dispatch('cart/removeItem', id);
         }

@@ -1,11 +1,16 @@
-const state = {
+import { MutationTree, ActionTree, GetterTree } from 'vuex';
+import { RootState } from '@/store/types';
+import { ICartState } from '@/store/cart/types';
+import { CartItemType } from './types';
+
+const state: ICartState = {
   pizzas: [],
 };
 
-const getters = {
+const getters: GetterTree<ICartState, RootState> = {
   cartPizzas: state => state.pizzas.map(({ id }) => state.pizzas.find(pizzaObj => pizzaObj.id === id)),
 
-  cartItemsCount: state => id => {
+  cartItemsCount: state => (id: number) => {
     const findItem = state.pizzas.find(pizzaObj => pizzaObj.id === id);
     if (findItem) {
       return findItem.count;
@@ -18,7 +23,7 @@ const getters = {
   cartTotalCount: state => state.pizzas.reduce((total, pizzaObj) => total + pizzaObj.count, 0),
 };
 
-const mutations = {
+const mutations: MutationTree<ICartState> = {
   pushToCart(state, pizzaObj) {
     state.pizzas.push({
       ...pizzaObj,
@@ -26,25 +31,27 @@ const mutations = {
     });
   },
 
-  incrementItemCount(state, id) {
+  incrementItemCount(state, id: number) {
     const cartItem = state.pizzas.find(item => item.id === id);
-    cartItem.count++;
+    if (typeof cartItem !== 'undefined') {
+      cartItem.count++;
+    }
   },
 
-  decrementItemCount(state, id) {
+  decrementItemCount(state, id: number) {
     const cartItem = state.pizzas.find(item => item.id === id);
-    if (cartItem.count > 1) {
+    if (cartItem && cartItem.count > 1) {
       cartItem.count--;
     }
   },
 
-  removeCartItems(state, newCartItems) {
+  removeCartItems(state, newCartItems: CartItemType[]) {
     state.pizzas = newCartItems;
   },
 };
 
-const actions = {
-  addToCart({ state, commit }, pizzaObj) {
+const actions: ActionTree<ICartState, RootState> = {
+  addToCart({ state, commit }, pizzaObj: CartItemType) {
     const findItem = state.pizzas.find(item => item.id === pizzaObj.id);
     if (findItem) {
       commit('incrementItemCount', findItem.id);
@@ -53,7 +60,7 @@ const actions = {
     }
   },
 
-  removeItem({ state, commit }, id) {
+  removeItem({ state, commit }, id: number) {
     const newCartItems = state.pizzas.filter(item => item.id !== id);
     commit('removeCartItems', newCartItems);
   },
@@ -67,6 +74,6 @@ export default {
   namespaced: true,
   state,
   getters,
-  actions,
   mutations,
+  actions,
 };

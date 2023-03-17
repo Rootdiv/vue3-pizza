@@ -9,10 +9,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import ClearSvg from './icons/ClearSvg.vue';
   import { ref, watch } from 'vue';
-  import { useStore } from 'vuex';
+  import { useStore } from '@/store';
   import debounce from 'lodash.debounce';
 
   export default {

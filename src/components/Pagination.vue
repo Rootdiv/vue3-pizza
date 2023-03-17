@@ -13,16 +13,8 @@
   </ul>
 </template>
 
-<script>
-  export default {
-    name: 'Pagination',
-    props: {
-      totalPages: Number,
-      currentPage: Number,
-      changePage: Function,
-      required: true,
-    },
-  };
+<script setup lang="ts">
+  defineProps<{ totalPages: number; currentPage: number; changePage: (page: number) => void }>();
 </script>
 
 <style lang="scss" scoped>

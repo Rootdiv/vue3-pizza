@@ -7,18 +7,11 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
   import CartEmpty from '@/components/CartEmpty.vue';
   import CartItem from '@/components/CartItem.vue';
   import { computed } from 'vue';
-  import { useStore } from 'vuex';
+  import { useStore } from '@/store';
 
-  export default {
-    name: 'Cart',
-    components: { CartItem, CartEmpty },
-    setup() {
-      const count = computed(() => useStore().getters['cart/cartTotalCount']);
-      return { count };
-    },
-  };
+  const count = computed<number>(() => useStore().getters['cart/cartTotalCount']);
 </script>

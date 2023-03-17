@@ -8,7 +8,7 @@
   </ContentLoader>
 </template>
 
-<script>
+<script lang="ts">
   import { ContentLoader } from 'vue-content-loader';
 
   export default {

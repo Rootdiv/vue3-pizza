@@ -13,3 +13,4 @@
 - Vue Content Loader (скелетон)
 - Lodash.Debounce
 - Vuex Persist (сохранение корзины в localStorage)
+- TypeScript
