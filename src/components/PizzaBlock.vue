@@ -59,7 +59,7 @@
           imageUrl,
           title,
           dough: typesDough[selectedDough.value],
-          diameter: selectedDiameter.value,
+          size: selectedDiameter.value,
           price,
         });
       };

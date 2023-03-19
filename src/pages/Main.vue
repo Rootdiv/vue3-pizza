@@ -26,7 +26,7 @@
   import Skeleton from '@/components/Skeleton.vue';
   import Pagination from '@/components/Pagination.vue';
   import { computed, onMounted } from 'vue';
-  import { useStore } from '../store/index';
+  import { useStore } from '@/store';
 
   export default {
     name: 'Main',
