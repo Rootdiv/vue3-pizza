@@ -8,42 +8,44 @@
     </div>
   </div>
   <div class="content__items">
-    <div v-for="cartPizza in cartPizzas" :key="cartPizza.id" class="cart__item">
-      <div class="cart__item-img">
-        <img class="pizza-block__image" :src="cartPizza.imageUrl" alt="Pizza" />
-      </div>
-      <div class="cart__item-info">
-        <h3>{{ cartPizza.title }}</h3>
-        <p>{{ cartPizza.dough }}, {{ cartPizza.diameter }} см.</p>
-      </div>
-      <div class="cart__item-count">
-        <button type="button" class="button button--outline button--circle cart__item-count-minus"
-          :disabled="cartPizza.count === 1" @click="minusItem(cartPizza.id)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
-            <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
-          </svg>
-        </button>
-        <b>{{ cartPizza.count }}</b>
-        <button type="button" class="button button--outline button--circle cart__item-count-plus"
-          @click="plusItem(cartPizza.id)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
-            <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
-            <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
-          </svg>
-        </button>
-      </div>
-      <div class="cart__item-price">
-        <b>{{ cartPizza.price * cartPizza.count }} &#8381;</b>
-      </div>
-      <div class="cart__item-remove" @click="removeItem(cartPizza.id)">
-        <div class="button button--outline button--circle">
-          <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
-            <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
-            <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
-          </svg>
+    <TransitionGroup name="cart-item">
+      <div v-for="cartPizza in cartPizzas" :key="cartPizza.id" class="cart__item">
+        <div class="cart__item-img">
+          <img class="pizza-block__image" :src="cartPizza.imageUrl" alt="Pizza" />
+        </div>
+        <div class="cart__item-info">
+          <h3>{{ cartPizza.title }}</h3>
+          <p>{{ cartPizza.dough }}, {{ cartPizza.diameter }} см.</p>
+        </div>
+        <div class="cart__item-count">
+          <button type="button" class="button button--outline button--circle cart__item-count-minus"
+            :disabled="cartPizza.count === 1" @click="minusItem(cartPizza.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
+              <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
+            </svg>
+          </button>
+          <b>{{ cartPizza.count }}</b>
+          <button type="button" class="button button--outline button--circle cart__item-count-plus"
+            @click="plusItem(cartPizza.id)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
+              <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
+              <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
+            </svg>
+          </button>
+        </div>
+        <div class="cart__item-price">
+          <b>{{ cartPizza.price * cartPizza.count }} &#8381;</b>
+        </div>
+        <div class="cart__item-remove" @click="removeItem(cartPizza.id)">
+          <div class="button button--outline button--circle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
+              <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
+              <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
+            </svg>
+          </div>
         </div>
       </div>
-    </div>
+    </TransitionGroup>
   </div>
   <div class="cart__bottom">
     <div class="cart__bottom-details">
@@ -122,3 +124,19 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .cart-item {
+
+    &-enter-active,
+    &-leave-active {
+      transition: all 0.3s ease;
+    }
+
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+  }
+</style>

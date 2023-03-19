@@ -10,8 +10,10 @@
       <p>К сожалению, не удалось получить пиццы. Попробуйте повторить попытку позже.</p>
     </div>
     <div v-else class="content__items">
-      <Skeleton v-if="status === 'loading'" v-for="(_, index) in [...new Array(4)]" :key="index" />
-      <PizzaBlock v-else v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+      <TransitionGroup name="pizza-block">
+        <Skeleton v-if="status === 'loading'" v-for="(_, index) in [...new Array(4)]" :key="index" />
+        <PizzaBlock v-else v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+      </TransitionGroup>
     </div>
     <Pagination v-show="totalPages" :totalPages="totalPages" :currentPage="currentPage" :changePage="changePage" />
   </div>
@@ -62,3 +64,19 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .pizza-block {
+
+    &-enter-active,
+    &-leave-active {
+      transition: all 0.3s ease;
+    }
+
+    &-enter-from,
+    &-leave-to {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+  }
+</style>
