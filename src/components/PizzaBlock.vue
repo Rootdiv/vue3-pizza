@@ -17,14 +17,14 @@
       </div>
       <div class="pizza-block__bottom">
         <div class="pizza-block__price">от {{ pizza.price }} &#8381;</div>
-        <button type="button" class="button button--outline button--add" @click="addToCart()">
+        <Button :class="'button--add'" @click="addToCart()">
           <svg width="10" height="10" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
             <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
           </svg>
           <span>Добавить</span>
           <span v-show="count" class="count">{{ count }}</span>
-        </button>
+        </Button>
       </div>
     </div>
   </div>
@@ -34,9 +34,11 @@
   import { ref, computed, defineComponent, PropType } from 'vue';
   import { useStore } from '@/store';
   import { PizzaItem } from '@/store/pizzas/types';
+  import Button from './Button.vue';
 
   export default defineComponent({
     name: 'PizzaBlock',
+    components: { Button },
     props: {
       pizza: {
         type: Object as PropType<PizzaItem>,
