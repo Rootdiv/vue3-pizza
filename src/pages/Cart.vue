@@ -12,7 +12,8 @@
       </div>
       <div class="content__items">
         <TransitionGroup name="cart-item">
-          <CartItem v-for="cartPizza in cartPizzas" :key="cartPizza.id" :cartPizza="cartPizza" />
+          <CartItem v-for="cartPizza in cartPizzas" :key="cartPizza.id" :cartPizza="cartPizza" @minus="minusItem"
+            @plus="plusItem" @remove="removeItem" />
         </TransitionGroup>
       </div>
       <div class="cart__bottom">
@@ -73,6 +74,20 @@
         }
       };
 
+      const plusItem = (id: number) => {
+        store.commit('cart/incrementItemCount', id);
+      };
+
+      const minusItem = (id: number) => {
+        store.commit('cart/decrementItemCount', id);
+      };
+
+      const removeItem = (id: number) => {
+        if (window.confirm('Вы действительно хотите удалить товар?')) {
+          store.dispatch('cart/removeItem', id);
+        }
+      };
+
       watch(priceTotal, () => {
         store.getters['cart/cartTotalPrice'];
         store.getters['cart/cartTotalCount'];
@@ -82,6 +97,9 @@
         cartPizzas,
         countTotal,
         priceTotal,
+        plusItem,
+        minusItem,
+        removeItem,
         clearCart,
       };
     },

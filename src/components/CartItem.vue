@@ -9,13 +9,13 @@
     </div>
     <div class="cart__item-count">
       <Button :class="'button--circle cart__item-count-minus'" :disabled="cartPizza.count === 1"
-        @click="minusItem(cartPizza.id)">
+        @click="$emit('minus', cartPizza.id)">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
           <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
         </svg>
       </Button>
       <b>{{ cartPizza.count }}</b>
-      <Button :class="'button--circle cart__item-count-plus'" @click="plusItem(cartPizza.id)">
+      <Button :class="'button--circle cart__item-count-plus'" @click="$emit('plus', cartPizza.id)">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
           <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
           <path d="M5.76 5.92H.96A.96.96 0 0 1 .96 4h7.68a.96.96 0 0 1 0 1.92H5.76Z" />
@@ -23,9 +23,9 @@
       </Button>
     </div>
     <div class="cart__item-price">
-      <b>{{ cartPizza.price * cartPizza.count }} &#8381;</b>r
+      <b>{{ cartPizza.price * cartPizza.count }} &#8381;</b>
     </div>
-    <div class="cart__item-remove" @click="removeItem(cartPizza.id)">
+    <div class="cart__item-remove" @click="$emit('remove', cartPizza.id)">
       <Button :class="'button--circle'">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor">
           <path d="M5.92 3.84v4.8a.96.96 0 0 1-1.92 0V.96a.96.96 0 0 1 1.92 0v2.88Z" />
@@ -38,7 +38,6 @@
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import { useStore } from '@/store';
   import { CartItemType } from '@/store/cart/types';
   import Button from './Button.vue';
 
@@ -51,28 +50,6 @@
         required: true,
       },
     },
-    setup() {
-      const store = useStore();
-
-      const plusItem = (id: number) => {
-        store.commit('cart/incrementItemCount', id);
-      };
-
-      const minusItem = (id: number) => {
-        store.commit('cart/decrementItemCount', id);
-      };
-
-      const removeItem = (id: number) => {
-        if (window.confirm('Вы действительно хотите удалить товар?')) {
-          store.dispatch('cart/removeItem', id);
-        }
-      };
-
-      return {
-        plusItem,
-        minusItem,
-        removeItem,
-      };
-    },
+    emits: ['plus', 'minus', 'remove'],
   });
 </script>

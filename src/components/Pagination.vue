@@ -1,20 +1,22 @@
 <template>
   <ul class="pagination">
-    <li class="pagination__item" @click="changePage(1)">
+    <li class="pagination__item" @click="$emit('change-page', 1)">
       <button type="button" class="pagination__button">&lt;</button>
     </li>
-    <li v-for="pageNumber in totalPages" :key="pageNumber" class="pagination__item" @click="changePage(pageNumber)">
+    <li v-for="pageNumber in totalPages" :key="pageNumber" class="pagination__item"
+      @click="$emit('change-page', pageNumber)">
       <button type="button" :class="['pagination__button', { selected: currentPage === pageNumber }]"
         v-text="pageNumber" />
     </li>
-    <li class="pagination__item" @click="changePage(totalPages)">
+    <li class="pagination__item" @click="$emit('change-page', totalPages)">
       <button type="button" class="pagination__button">&gt;</button>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-  defineProps<{ totalPages: number; currentPage: number; changePage: (page: number) => void }>();
+  defineProps<{ totalPages: number; currentPage: number }>();
+  defineEmits(['change-page']);
 </script>
 
 <style lang="scss" scoped>

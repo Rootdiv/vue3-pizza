@@ -15,7 +15,7 @@
         <PizzaBlock v-else v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
       </TransitionGroup>
     </div>
-    <Pagination v-show="totalPages" :totalPages="totalPages" :currentPage="currentPage" :changePage="changePage" />
+    <Pagination v-show="totalPages" :totalPages="totalPages" :currentPage="currentPage" @change-page="setCurrentPage" />
   </div>
 </template>
 
@@ -45,7 +45,7 @@
       const currentPage = computed(() => store.state.pizzas.page);
       const totalPages = computed(() => store.state.pizzas.pages);
 
-      const changePage = (page: number) => {
+      const setCurrentPage = (page: number) => {
         store.commit('filter/setCurrentPage', page);
         store.dispatch('pizzas/fetchPizzas');
       };
@@ -59,7 +59,7 @@
         pizzas,
         currentPage,
         totalPages,
-        changePage,
+        setCurrentPage,
       };
     },
     emits: ['vnode-unmounted'],
