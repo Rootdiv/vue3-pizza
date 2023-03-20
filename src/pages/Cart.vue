@@ -85,6 +85,7 @@
         clearCart,
       };
     },
+    emits: ['vnode-unmounted'],
   };
 </script>
 

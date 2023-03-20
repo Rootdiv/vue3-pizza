@@ -5,7 +5,9 @@
       <path fill="none" stroke="#000" d="m27 27-6.634-6.634" />
     </svg>
     <input class="input" v-model.trim="searchValue" placeholder="Поиск пиццы..." />
-    <ClearSvg v-show="searchValue" width="20" height="20" class="clear-icon" @click="searchValue = ''" />
+    <button v-show="searchValue" class="clear-icon" @click="searchValue = ''">
+      <ClearSvg width="20" height="20" />
+    </button>
   </div>
 </template>
 
@@ -71,12 +73,15 @@
   }
 
   .clear-icon {
-    width: 18px;
-    height: 18px;
+    width: 25px;
+    height: 25px;
     opacity: 0.3;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 12px;
+    top: 12px;
+    line-height: 0;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
 
     &:hover {

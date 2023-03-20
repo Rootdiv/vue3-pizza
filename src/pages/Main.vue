@@ -62,6 +62,7 @@
         changePage,
       };
     },
+    emits: ['vnode-unmounted'],
   };
 </script>
 

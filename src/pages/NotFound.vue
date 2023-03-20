@@ -12,6 +12,7 @@
 <script lang="ts">
   export default {
     name: 'NotFound',
+    emits: ['vnode-unmounted'],
   };
 </script>
 
