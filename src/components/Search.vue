@@ -4,7 +4,7 @@
       <circle cx="14" cy="14" r="9" fill="none" stroke="#000" />
       <path fill="none" stroke="#000" d="m27 27-6.634-6.634" />
     </svg>
-    <input class="input" v-model.trim="searchValue" placeholder="Поиск пиццы..." />
+    <input v-model.trim="searchValue" class="input" placeholder="Поиск пиццы..." />
     <button v-show="searchValue" class="clear-icon" @click="searchValue = ''">
       <ClearSvg width="20" height="20" />
     </button>
@@ -18,7 +18,7 @@
   import debounce from 'lodash.debounce';
 
   export default {
-    name: 'Search',
+    name: 'SearchComponent',
     components: { ClearSvg },
     setup() {
       const searchValue = ref('');

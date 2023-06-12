@@ -11,11 +11,17 @@
     </div>
     <div v-else class="content__items">
       <TransitionGroup name="pizza-block">
-        <Skeleton v-if="status === 'loading'" v-for="(_, index) in [...new Array(4)]" :key="index" />
-        <PizzaBlock v-else v-for="pizza in pizzas" :key="pizza.id" :pizza="pizza" />
+        <div v-if="status === 'loading'">
+          <Skeleton v-for="(_, index) in [...new Array(4)]" :key="index" />
+        </div>
+        <PizzaBlock v-for="pizza in pizzas" v-else :key="pizza.id" :pizza="pizza" />
       </TransitionGroup>
     </div>
-    <Pagination v-show="totalPages" :totalPages="totalPages" :currentPage="currentPage" @change-page="setCurrentPage" />
+    <Pagination
+      v-show="totalPages"
+      :total-pages="totalPages"
+      :current-page="currentPage"
+      @change-page="setCurrentPage" />
   </div>
 </template>
 
@@ -29,7 +35,7 @@
   import { useStore } from '@/store';
 
   export default {
-    name: 'Main',
+    name: 'MainPage',
     components: {
       Categories,
       Sort,
@@ -37,6 +43,8 @@
       Skeleton,
       Pagination,
     },
+    emits: ['vnode-unmounted'],
+
     setup() {
       const store = useStore();
 
@@ -62,7 +70,6 @@
         setCurrentPage,
       };
     },
-    emits: ['vnode-unmounted'],
   };
 </script>
 

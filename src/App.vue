@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Header />
+    <HeaderComponent />
     <div className="content">
       <RouterView />
     </div>
@@ -8,12 +8,12 @@
 </template>
 
 <script lang="ts">
-  import Header from '@/components/Header.vue';
+  import HeaderComponent from '@/components/Header.vue';
 
   export default {
     name: 'App',
     components: {
-      Header,
+      HeaderComponent,
     },
   };
 </script>

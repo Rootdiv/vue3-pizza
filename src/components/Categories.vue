@@ -16,7 +16,7 @@
   import { useStore } from '@/store';
 
   export default {
-    name: 'Categories',
+    name: 'CategoriesComponent',
 
     setup() {
       const store = useStore();

@@ -15,7 +15,7 @@
           <CartItem
             v-for="cartPizza in cartPizzas"
             :key="cartPizza.id"
-            :cartPizza="cartPizza"
+            :cart-pizza="cartPizza"
             @minus="minusItem"
             @plus="plusItem"
             @remove="removeItem" />
@@ -62,13 +62,14 @@
   import { CartItemType } from '@/store/cart/types';
 
   export default {
-    name: 'Cart',
+    name: 'CartPage',
     components: {
       CartEmpty,
       CartItem,
       CartSvg,
       TrashSvg,
     },
+    emits: ['vnode-unmounted'],
 
     setup() {
       const store = useStore();
@@ -112,7 +113,6 @@
         clearCart,
       };
     },
-    emits: ['vnode-unmounted'],
   };
 </script>
 

@@ -28,7 +28,7 @@
   import { useStore } from '@/store';
 
   export default {
-    name: 'Header',
+    name: 'HeaderComponent',
     components: { Search },
     setup() {
       const store = useStore();

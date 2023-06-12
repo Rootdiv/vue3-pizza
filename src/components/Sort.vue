@@ -1,11 +1,11 @@
 <template>
-  <div class="sort" ref="sortRef">
+  <div ref="sortRef" class="sort">
     <div class="sort__label">
       <img :class="['sort__arrow', { rotated: isOpen }]" src="@/assets/img/arrow-top.svg" alt="" />
       <b>Сортировка по:</b>
       <span @click="toggleOpen()">{{ selectedSortActive }}</span>
     </div>
-    <div class="sort__popup" v-show="isOpen">
+    <div v-show="isOpen" class="sort__popup">
       <ul>
         <li
           v-for="sortList in sortLists"
@@ -24,7 +24,7 @@
   import { useStore } from '@/store';
 
   export default {
-    name: 'Sort',
+    name: 'SortComponent',
 
     setup() {
       const store = useStore();
@@ -54,8 +54,8 @@
       };
 
       const handleOutsideClick = (event: MouseEvent) => {
-        if (sortRef instanceof HTMLDivElement) {
-          if (!event.composedPath().includes(sortRef)) {
+        if (sortRef.value instanceof HTMLDivElement) {
+          if (!event.composedPath().includes(sortRef.value)) {
             isOpen.value = false;
           }
         }
