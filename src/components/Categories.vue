@@ -1,8 +1,12 @@
 <template>
   <div class="categories">
     <ul>
-      <li v-for="(category, index) in categories" :key="category" :class="{ active: category === selectedCategory }"
-        @click="changeCategory(index)" v-text="category" />
+      <li
+        v-for="(category, index) in categories"
+        :key="category"
+        :class="{ active: category === selectedCategory }"
+        @click="changeCategory(index)"
+        v-text="category" />
     </ul>
   </div>
 </template>

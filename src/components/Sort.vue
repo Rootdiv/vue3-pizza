@@ -7,8 +7,12 @@
     </div>
     <div class="sort__popup" v-show="isOpen">
       <ul>
-        <li v-for="sortList in sortLists" :key="sortList.type" :class="{ active: sortList.title === selectedSortActive }"
-          @click="selectedSort(sortList)" v-text="sortList.title" />
+        <li
+          v-for="sortList in sortLists"
+          :key="sortList.type"
+          :class="{ active: sortList.title === selectedSortActive }"
+          @click="selectedSort(sortList)"
+          v-text="sortList.title" />
       </ul>
     </div>
   </div>

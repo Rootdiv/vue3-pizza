@@ -26,5 +26,5 @@ export const store = createStore<RootState>({
 export const key: InjectionKey<Store<RootState>> = Symbol();
 
 //Создаём свой useStore с ключом (чтобы не импортировать дополнительно ключ)
-//при этом не обходимо заменить все импорты useStore в компонентах
+//при этом необходимо заменить все импорты useStore в компонентах
 export const useStore = () => baseUseStore(key);

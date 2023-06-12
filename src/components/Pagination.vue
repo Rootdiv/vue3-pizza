@@ -3,9 +3,14 @@
     <li class="pagination__item" @click="$emit('change-page', 1)">
       <button type="button" class="pagination__button">&lt;</button>
     </li>
-    <li v-for="pageNumber in totalPages" :key="pageNumber" class="pagination__item"
+    <li
+      v-for="pageNumber in totalPages"
+      :key="pageNumber"
+      class="pagination__item"
       @click="$emit('change-page', pageNumber)">
-      <button type="button" :class="['pagination__button', { selected: currentPage === pageNumber }]"
+      <button
+        type="button"
+        :class="['pagination__button', { selected: currentPage === pageNumber }]"
         v-text="pageNumber" />
     </li>
     <li class="pagination__item" @click="$emit('change-page', totalPages)">
