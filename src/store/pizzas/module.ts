@@ -25,7 +25,7 @@ const mutations: MutationTree<IPizzaState> = {
   },
 };
 
-const API_URL = import.meta.env.DEV ? 'http://localhost:2010' : 'https://rootdiv.ru:2010';
+const API_URL = import.meta.env.DEV ? 'http://localhost:2010' : 'https://api.rootdiv.ru';
 
 const actions: ActionTree<IPizzaState, RootState> = {
   fetchPizzas({ commit, rootState }) {
@@ -36,12 +36,14 @@ const actions: ActionTree<IPizzaState, RootState> = {
     const paramsUrl = `${category}sortby=${sortType}&order=${sorts.order}${search}`;
     try {
       commit('setStatus', 'loading');
-      axios.get<Pizzas>(`${API_URL}/pizzas?page=${currentPage}&limit=4&${paramsUrl}`).then(response => {
-        commit('setPage', response.data.page);
-        commit('setPages', response.data.pages);
-        commit('setPizzas', response.data.pizzas);
-        commit('setStatus', 'success');
-      });
+      axios
+        .get<Pizzas>(`${API_URL}/pizzas?page=${currentPage}&limit=4&${paramsUrl}`)
+        .then(response => {
+          commit('setPage', response.data.page);
+          commit('setPages', response.data.pages);
+          commit('setPizzas', response.data.pizzas);
+          commit('setStatus', 'success');
+        });
     } catch (err) {
       if (err instanceof Error) {
         console.error('Произошла ошибка:', err.message);
